@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Hide Youtube Header",
+  "version": "0.2",
+  "action": { "default_popup": "hyh-popup.html" },
+  "content_scripts": [{
+    "matches": ["https://youtube.com/*",  "https://www.youtube.com/*"],
+    "js": ["hyh-content.js"],
+    "run_at": "document_start"
+  }]
+}

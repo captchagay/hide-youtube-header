@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+}
+
+#hyh-btn {
+  padding: 16px;
+  white-space: nowrap;
+  font-weight: bold;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+#hyh-btn:first-letter {
+  text-transform: uppercase;
+}
