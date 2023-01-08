@@ -20,7 +20,7 @@ function hideHeader(bool) {
   }
 }
 
-const sendMessageToPopup = (msgObj) => chrome.runtime.sendMessage(msgObj)
+const sendMessageToBackground = (msgObj) => chrome.runtime.sendMessage(msgObj)
 
 function action() {
   if (availablePages.includes(location.pathname))
@@ -31,10 +31,10 @@ function action() {
     if (headerIsHidden) hideHeader(false)
   }
 
-  sendMessageToPopup({ stop, headerIsHidden })
+  sendMessageToBackground({ stop, headerIsHidden })
 
   chrome.runtime.onMessage.addListener(msg => {
-    if (msg.sync) sendMessageToPopup({ stop, headerIsHidden })
+    if (msg.sync) sendMessageToBackground({ stop, headerIsHidden })
     if ([true, false].includes(msg.hideHeader)) hideHeader(msg.hideHeader)
   })
 }
