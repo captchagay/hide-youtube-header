@@ -1,9 +1,9 @@
 let stop = true,
     headerIsHidden = false
 
-const hideIconPath = "hyh-hide.png",
-      showIconPath = "hyh-show.png",
-      defaultIconPath = "hyh-default.png",
+const hideIconPath = "icons/hyh-hide.png",
+      showIconPath = "icons/hyh-show.png",
+      defaultIconPath = "icons/hyh-default.png",
       setIcon = (path) => chrome.action.setIcon({ path })
 
 const hideHeaderTitle = "Hide header",
