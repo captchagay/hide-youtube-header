@@ -3,10 +3,10 @@
   "name": "Hide Youtube Header",
   "version": "0.4",
   "icons": {
-    "16": "hyh-default.png",
-    "32": "hyh-default.png",
-    "48": "hyh-default.png",
-    "128": "hyh-default.png"
+    "16": "icons/hyh-default.png",
+    "32": "icons/hyh-default.png",
+    "48": "icons/hyh-default.png",
+    "128": "icons/hyh-default.png"
   },
   "background": { 
     "service_worker": "hyh-background.js"
