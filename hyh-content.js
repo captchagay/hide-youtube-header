@@ -22,6 +22,11 @@ function hideHeader(bool) {
 
 const sendMessageToBackground = (msgObj) => chrome.runtime.sendMessage(msgObj)
 
+function onMessage(msg) {
+  if (msg.sync) sendMessageToBackground({ stop, headerIsHidden })
+  if ([true, false].includes(msg.hideHeader)) hideHeader(msg.hideHeader)
+}
+
 function action() {
   if (availablePages.includes(location.pathname))
     stop = false
@@ -33,10 +38,9 @@ function action() {
 
   sendMessageToBackground({ stop, headerIsHidden })
 
-  chrome.runtime.onMessage.addListener(msg => {
-    if (msg.sync) sendMessageToBackground({ stop, headerIsHidden })
-    if ([true, false].includes(msg.hideHeader)) hideHeader(msg.hideHeader)
-  })
+  // remove previously assigned event to avoid dublicate
+  chrome.runtime.onMessage.removeListener(onMessage)
+  chrome.runtime.onMessage.addListener(onMessage)
 }
 
 document.addEventListener("yt-page-type-changed", action)
