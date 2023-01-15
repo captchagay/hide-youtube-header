@@ -11,6 +11,12 @@ const hideHeaderTitle = "Hide header",
       unavailableTitle = "Unavailable on this page",
       setExtensionTitle = (title) => chrome.action.setTitle({ title })
 
+function resetState() {
+  stop = true
+  setIcon(defaultIconPath)
+  setExtensionTitle(unavailableTitle)
+}
+
 const sendMessageToPopup = (msgObj) => chrome.runtime.sendMessage(msgObj)
 
 function sendMessageToContent(msgObj) {
@@ -37,8 +43,11 @@ function onExtensionClick() {
 // request content state and sync with it
 sendMessageToContent({ sync: true })
 
-// sync on tab change
-chrome.tabs.onActivated.addListener(() => sendMessageToContent({ sync: true }))
+// reset and sync state on tab change
+chrome.tabs.onActivated.addListener(() => {
+  resetState()
+  sendMessageToContent({ sync: true })
+})
 
 // messages from content and popup
 chrome.runtime.onMessage.addListener(msg => {
@@ -59,11 +68,7 @@ chrome.runtime.onMessage.addListener(msg => {
     setIcon(headerIsHidden ? showIconPath : hideIconPath)
     setExtensionTitle(headerIsHidden ? showHeaderTitle : hideHeaderTitle)
 
-  } else if (msg.stop === true) {
-    stop = true
-    setIcon(defaultIconPath)
-    setExtensionTitle(unavailableTitle)
-  }
+  } else if (msg.stop === true) resetState()
 
   /* popup messages */
   if (msg.extensionClick === true) {
