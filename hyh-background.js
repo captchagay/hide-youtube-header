@@ -37,6 +37,9 @@ function onExtensionClick() {
 // request content state and sync with it
 sendMessageToContent({ sync: true })
 
+// sync on tab change
+chrome.tabs.onActivated.addListener(() => sendMessageToContent({ sync: true }))
+
 // messages from content and popup
 chrome.runtime.onMessage.addListener(msg => {
   /* content messages */
