@@ -1,5 +1,4 @@
 const availablePages = ["/watch"]
-const initialPageMarginTop = "var(--ytd-masthead-height,var(--ytd-toolbar-height))"
 
 let stop = true,
     headerIsHidden = false
@@ -9,13 +8,13 @@ function hideHeader(bool) {
         page = document.getElementById("page-manager")
 
   if (bool) {
-    header.style.display = "none"
-    page.style.marginTop = "0"
+    header.classList.add("hyhHeader")
+    page.classList.add("hyhPage")
     headerIsHidden = true
 
   } else {
-    header.style.display = "unset"
-    page.style.marginTop = initialPageMarginTop
+    header.classList.remove("hyhHeader")
+    page.classList.remove("hyhPage")
     headerIsHidden = false
   }
 }
